@@ -83,7 +83,7 @@ bool SeplosModbus::parse_seplos_modbus_byte_(uint8_t byte) {
 
   // Start of frame
   if (raw[0] != 0x7E) {
-    ESP_LOGW(TAG, "Invalid header: 0x%02X", raw[0]);
+    ESP_LOGW(TAG, "Invalid header: %s", format_hex_pretty(raw, at-1).c_str());
 
     // return false to reset buffer
     return false;
