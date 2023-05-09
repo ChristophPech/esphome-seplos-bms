@@ -86,7 +86,7 @@ bool SeplosModbus::parse_seplos_modbus_byte_(uint8_t byte) {
     ESP_LOGW(TAG, "Invalid header: 0x%02X %i '%s'", raw[0],at,format_hex_pretty(raw, at-1).c_str());
 
     // return false to reset buffer
-    return false;
+    //return false;
   }
 
   // End of frame '\r'
