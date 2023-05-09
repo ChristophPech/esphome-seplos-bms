@@ -28,6 +28,10 @@ void SeplosModbus::loop() {
     } else {
       this->rx_buffer_.clear();
     }
+
+    if(this->rx_buffer_.size()>400) {
+      ESP_LOGW(TAG, "Buffer overflow: %i", this->rx_buffer_.size());
+    }
   }
 }
 
@@ -81,9 +85,11 @@ bool SeplosModbus::parse_seplos_modbus_byte_(uint8_t byte) {
   if (at == 0)
     return true;
 
+  ESP_LOGW(TAG, "frame: %i '%s'", at,format_hex_pretty(raw, at).c_str());
+
   // Start of frame
   if (raw[0] != 0x7E) {
-    ESP_LOGW(TAG, "Invalid header: 0x%02X %i '%s'", raw[0],at,format_hex_pretty(raw, at-1).c_str());
+    ESP_LOGW(TAG, "Invalid header: 0x%02X", raw[0]);
 
     // return false to reset buffer
     //return false;
